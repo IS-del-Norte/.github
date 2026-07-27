@@ -2,10 +2,10 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/logo_blanco.svg">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/logo.svg" alt="IS del Norte" width="180">
+  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/logo.svg" alt="IS del Norte" width="240">
 </picture>
 
-# IS del Norte
+<br>
 
 **Soluciones tecnológicas empresariales · Monterrey, Nuevo León, México**
 
@@ -24,12 +24,12 @@ y acompañamos la transformación digital de empresas mexicanas.
 
 | | Servicio |
 |---|---|
-| 🏢 | **Intelisis ERP** — Implementación, personalización y soporte. Implementadores certificados con +19 años de experiencia. |
-| 📱 | **Aplicaciones móviles** — Apps empresariales para iOS y Android desde una sola base de código. |
-| 🌐 | **Aplicaciones web** — Sistemas a la medida que centralizan la operación y eliminan procesos manuales. |
-| 🛒 | **E-commerce** — Tiendas en línea con pagos mexicanos (OXXO, SPEI, tarjetas) e integración de paqueterías. |
-| ☁️ | **Respaldo Simple** — Backup empresarial con cifrado AES-256 para servidores Windows y SQL Server. |
-| 🔍 | **Consultoría** — Diagnóstico de operación, plan de transformación digital e implementación. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/building.svg" width="20" alt=""> | **Intelisis ERP** — Implementación, personalización y soporte. Implementadores certificados con +19 años de experiencia. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/mobile-screen-button.svg" width="20" alt=""> | **Aplicaciones móviles** — Apps empresariales para iOS y Android desde una sola base de código. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="20" alt=""> | **Aplicaciones web** — Sistemas a la medida que centralizan la operación y eliminan procesos manuales. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cart-shopping.svg" width="20" alt=""> | **E-commerce** — Tiendas en línea con pagos mexicanos (OXXO, SPEI, tarjetas) e integración de paqueterías. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cloud-arrow-up.svg" width="20" alt=""> | **Respaldo Simple** — Backup empresarial con cifrado AES-256 para servidores Windows y SQL Server. |
+| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/magnifying-glass-chart.svg" width="20" alt=""> | **Consultoría** — Diagnóstico de operación, plan de transformación digital e implementación. |
 
 ## Stack
 
@@ -55,10 +55,10 @@ y acompañamos la transformación digital de empresas mexicanas.
 
 ## Contacto
 
-📍 Monterrey, NL, México
-📧 [contacto@isdelnorte.com](mailto:contacto@isdelnorte.com)
-📱 [81 2188 4423](tel:+528121884423)
-🌐 [isdelnorte.com](https://www.isdelnorte.com)
+<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/location-dot.svg" width="14" alt=""> Monterrey, NL, México
+<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/envelope.svg" width="14" alt=""> [contacto@isdelnorte.com](mailto:contacto@isdelnorte.com)
+<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/phone.svg" width="14" alt=""> [81 2188 4423](tel:+528121884423)
+<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="14" alt=""> [isdelnorte.com](https://www.isdelnorte.com)
 
 <div align="center">
 <sub>Primera consulta sin costo · Damos servicio a toda la República Mexicana</sub>
