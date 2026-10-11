@@ -1,35 +1,31 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/banner.svg" alt="IS del Norte — Soluciones tecnológicas para empresas mexicanas desde 1999" width="100%">
+  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/banner.svg" alt="IS del Norte — Soluciones tecnológicas. Software, ERP y apps para empresas mexicanas desde 1999" width="100%">
 </p>
 
 <p align="center">
-  <a href="https://www.isdelnorte.com"><img src="https://img.shields.io/badge/isdelnorte.com-003462?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Sitio web"></a>
-  <a href="https://www.linkedin.com/company/isdelnorte/"><img src="https://img.shields.io/badge/LinkedIn-0a4d8c?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://api.whatsapp.com/send?phone=528121884423"><img src="https://img.shields.io/badge/WhatsApp-418ADC?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp"></a>
-  <a href="mailto:contacto@isdelnorte.com"><img src="https://img.shields.io/badge/Correo-3fa9f5?style=for-the-badge&logo=gmail&logoColor=white" alt="Correo"></a>
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/cifras.svg" alt="Desde 1999 · +19 años con Intelisis ERP · iOS, Android y web · Servicio en los 32 estados" width="100%">
+  <a href="https://www.isdelnorte.com"><img src="https://img.shields.io/badge/isdelnorte.com-0A1C30?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Sitio web"></a>
+  <a href="https://www.linkedin.com/company/isdelnorte/"><img src="https://img.shields.io/badge/LinkedIn-0A1C30?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://api.whatsapp.com/send?phone=528121884423"><img src="https://img.shields.io/badge/WhatsApp-0A1C30?style=for-the-badge&logo=whatsapp&logoColor=25D366" alt="WhatsApp"></a>
+  <a href="mailto:contacto@isdelnorte.com"><img src="https://img.shields.io/badge/Correo-0A1C30?style=for-the-badge&logo=gmail&logoColor=white" alt="Correo"></a>
 </p>
 
 ## Qué hacemos
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios.svg" alt="Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce, Respaldo Simple y consultoría" width="100%">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-claro.svg" alt="Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce, Respaldo Simple y consultoría" width="100%"></picture>
 </p>
 
 ## Nuestros productos
 
 <p align="center">
-  <a href="https://misfinanzas.isdelnorte.com"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas.svg" alt="Mis Finanzas IS — finanzas personales en web, iOS y Android" width="49%"></a>
-  <a href="https://www.isdelnorte.com/respaldo-simple/"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-respaldo.svg" alt="Respaldo Simple — backup cifrado AES-256 para servidores" width="49%"></a>
+  <a href="https://misfinanzas.isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-claro.svg" alt="Mis Finanzas IS — finanzas personales en web, iOS y Android" width="49%"></picture></a>
+  <a href="https://www.isdelnorte.com/respaldo-simple/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-respaldo-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-respaldo-claro.svg" alt="Respaldo Simple — backup cifrado AES-256 para servidores" width="49%"></picture></a>
 </p>
 
 <p align="center">
-  <a href="https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300"><img src="https://img.shields.io/badge/App_Store-0a4d8c?style=for-the-badge&logo=appstore&logoColor=white" alt="Mis Finanzas IS en App Store"></a>
-  <a href="https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte"><img src="https://img.shields.io/badge/Google_Play-0a4d8c?style=for-the-badge&logo=googleplay&logoColor=white" alt="Mis Finanzas IS en Google Play"></a>
-  <a href="https://misfinanzas.isdelnorte.com"><img src="https://img.shields.io/badge/Versión_web-0a4d8c?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Mis Finanzas IS en la web"></a>
+  <a href="https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300"><img src="https://img.shields.io/badge/App_Store-418ADC?style=flat-square&logo=appstore&logoColor=white" alt="Mis Finanzas IS en App Store"></a>
+  <a href="https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte"><img src="https://img.shields.io/badge/Google_Play-418ADC?style=flat-square&logo=googleplay&logoColor=white" alt="Mis Finanzas IS en Google Play"></a>
+  <a href="https://misfinanzas.isdelnorte.com"><img src="https://img.shields.io/badge/Versión_web-418ADC?style=flat-square&logo=googlechrome&logoColor=white" alt="Mis Finanzas IS en la web"></a>
 </p>
 
 ## Stack
@@ -45,5 +41,5 @@
 <br>
 
 <p align="center">
-  <a href="https://api.whatsapp.com/send?phone=528121884423"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/contacto.svg" alt="¿Platicamos tu proyecto? Primera consulta sin costo — 81 2188 4423 · contacto@isdelnorte.com · Monterrey, NL" width="100%"></a>
+  <a href="https://api.whatsapp.com/send?phone=528121884423"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/contacto-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/contacto-claro.svg" alt="¿Platicamos tu proyecto? Primera consulta sin costo — 81 2188 4423 · contacto@isdelnorte.com · Monterrey, NL" width="100%"></picture></a>
 </p>
