@@ -1,65 +1,100 @@
-<div align="center">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/banner.svg" alt="IS del Norte — Soluciones tecnológicas para empresas mexicanas desde 1999" width="100%">
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/logo_blanco.svg">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/logo.svg" alt="IS del Norte" width="240">
-</picture>
+<p align="center">
+  <a href="https://www.isdelnorte.com"><img src="https://img.shields.io/badge/isdelnorte.com-003462?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Sitio web"></a>
+  <a href="https://www.linkedin.com/company/isdelnorte/"><img src="https://img.shields.io/badge/LinkedIn-0a4d8c?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://api.whatsapp.com/send?phone=528121884423"><img src="https://img.shields.io/badge/WhatsApp-418ADC?style=for-the-badge&logo=whatsapp&logoColor=white" alt="WhatsApp"></a>
+  <a href="mailto:contacto@isdelnorte.com"><img src="https://img.shields.io/badge/Correo-3fa9f5?style=for-the-badge&logo=gmail&logoColor=white" alt="Correo"></a>
+</p>
 
-<br>
-
-**Soluciones tecnológicas empresariales · Monterrey, Nuevo León, México**
-
-Desde 1999 desarrollamos software a medida, implementamos Intelisis ERP
-y acompañamos la transformación digital de empresas mexicanas.
-
-[![Sitio web](https://img.shields.io/badge/isdelnorte.com-418ADC?style=for-the-badge&logo=googlechrome&logoColor=white)](https://www.isdelnorte.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/isdelnorte/)
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://api.whatsapp.com/send?phone=528121884423)
-
-</div>
-
----
+<p align="center">
+  Desde 1999 desarrollamos software a medida, implementamos <b>Intelisis ERP</b><br>
+  y acompañamos la transformación digital de empresas mexicanas.
+</p>
 
 ## Qué hacemos
 
-| | Servicio |
-|---|---|
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/building.svg" width="20" alt=""> | **Intelisis ERP** — Implementación, personalización y soporte. Implementadores certificados con +19 años de experiencia. |
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/mobile-screen-button.svg" width="20" alt=""> | **Aplicaciones móviles** — Apps empresariales para iOS y Android desde una sola base de código. |
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="20" alt=""> | **Aplicaciones web** — Sistemas a la medida que centralizan la operación y eliminan procesos manuales. |
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cart-shopping.svg" width="20" alt=""> | **E-commerce** — Tiendas en línea con pagos mexicanos (OXXO, SPEI, tarjetas) e integración de paqueterías. |
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cloud-arrow-up.svg" width="20" alt=""> | **Respaldo Simple** — Backup empresarial con cifrado AES-256 para servidores Windows y SQL Server. |
-| <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/magnifying-glass-chart.svg" width="20" alt=""> | **Consultoría** — Diagnóstico de operación, plan de transformación digital e implementación. |
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/building.svg" width="20" alt=""> Intelisis ERP</h3>
+      Implementación, personalización y soporte. Implementadores certificados con +19 años de experiencia.
+    </td>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/mobile-screen-button.svg" width="20" alt=""> Aplicaciones móviles</h3>
+      Apps empresariales para iOS y Android desde una sola base de código.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="20" alt=""> Aplicaciones web</h3>
+      Sistemas a la medida que centralizan la operación y eliminan procesos manuales.
+    </td>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cart-shopping.svg" width="20" alt=""> E-commerce</h3>
+      Tiendas en línea con pagos mexicanos (OXXO, SPEI, tarjetas) e integración de paqueterías.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/cloud-arrow-up.svg" width="20" alt=""> Respaldo Simple</h3>
+      Backup empresarial con cifrado AES-256 para servidores Windows y SQL Server.
+    </td>
+    <td width="50%" valign="top">
+      <h3><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/magnifying-glass-chart.svg" width="20" alt=""> Consultoría</h3>
+      Diagnóstico de operación, plan de transformación digital e implementación.
+    </td>
+  </tr>
+</table>
 
 ## Stack
 
-![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![.NET](https://img.shields.io/badge/.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white)
-![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)
-![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white)
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=flutter,dart,nextjs,react,ts,nodejs,tailwind&perline=7" alt="Apps móviles y web">
+    <br>
+    <img src="https://skillicons.dev/icons?i=dotnet,cs,supabase,postgres,firebase,aws,vercel&perline=7" alt="Backend y nube">
+  </a>
+  <br>
+  <img src="https://img.shields.io/badge/SQL_Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white" alt="SQL Server">
+  <img src="https://img.shields.io/badge/Intelisis_ERP-003462?style=flat-square" alt="Intelisis ERP">
+</p>
 
 ## Nuestros productos
 
-**Mis Finanzas IS** — Gestión de finanzas personales. Múltiples cuentas, movimientos, pagos periódicos y reportes.
-
-[Web](https://misfinanzas.isdelnorte.com) · [iOS](https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300) · [Android](https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte)
-
-**Respaldo Simple** — Recuperación ante desastres para empresas con servidores físicos.
-
-[Conocer más](https://www.isdelnorte.com/respaldo-simple/)
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3><a href="https://misfinanzas.isdelnorte.com">Mis Finanzas IS</a></h3>
+      Finanzas personales: múltiples cuentas, movimientos, pagos periódicos y reportes.
+      <br><br>
+      <a href="https://misfinanzas.isdelnorte.com"><img src="https://img.shields.io/badge/Web-003462?style=flat-square&logo=googlechrome&logoColor=white" alt="Web"></a>
+      <a href="https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300"><img src="https://img.shields.io/badge/App_Store-0D96F6?style=flat-square&logo=appstore&logoColor=white" alt="App Store"></a>
+      <a href="https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte"><img src="https://img.shields.io/badge/Google_Play-414141?style=flat-square&logo=googleplay&logoColor=white" alt="Google Play"></a>
+    </td>
+    <td width="50%" valign="top">
+      <h3><a href="https://www.isdelnorte.com/respaldo-simple/">Respaldo Simple</a></h3>
+      Recuperación ante desastres para empresas con servidores físicos.
+      <br><br>
+      <a href="https://www.isdelnorte.com/respaldo-simple/"><img src="https://img.shields.io/badge/Conocer_más-418ADC?style=flat-square&logo=googlechrome&logoColor=white" alt="Conocer más"></a>
+      <img src="https://img.shields.io/badge/AES--256-0a4d8c?style=flat-square&logo=letsencrypt&logoColor=white" alt="AES-256">
+    </td>
+  </tr>
+</table>
 
 ## Contacto
 
-<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/location-dot.svg" width="14" alt=""> Monterrey, NL, México
-<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/envelope.svg" width="14" alt=""> [contacto@isdelnorte.com](mailto:contacto@isdelnorte.com)
-<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/phone.svg" width="14" alt=""> [81 2188 4423](tel:+528121884423)
-<img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="14" alt=""> [isdelnorte.com](https://www.isdelnorte.com)
+<table>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/location-dot.svg" width="14" alt=""> Monterrey, NL, México</td>
+    <td><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/envelope.svg" width="14" alt=""> <a href="mailto:contacto@isdelnorte.com">contacto@isdelnorte.com</a></td>
+    <td><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/phone.svg" width="14" alt=""> <a href="tel:+528121884423">81 2188 4423</a></td>
+    <td><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/icons/globe.svg" width="14" alt=""> <a href="https://www.isdelnorte.com">isdelnorte.com</a></td>
+  </tr>
+</table>
 
-<div align="center">
-<sub>Primera consulta sin costo · Damos servicio a toda la República Mexicana</sub>
-</div>
+<p align="center">
+  <sub>Primera consulta sin costo · Damos servicio a toda la República Mexicana</sub>
+</p>
