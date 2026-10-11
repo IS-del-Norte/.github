@@ -32,20 +32,16 @@ def fuente(archivo, familia, peso):
     return f"@font-face {{ font-family: '{familia}'; font-weight: {peso}; src: url(data:font/woff2;base64,{datos}) format('woff2'); }}"
 
 
-def css(mono=False):
-    reglas = [fuente(f"geist-{p}.woff2", "Geist", p) for p in (400, 500, 600)]
-    if mono:
-        reglas.append(fuente("geist-mono-400.woff2", "Geist Mono", 400))
-    return "\n      ".join(reglas)
+def css():
+    return "\n      ".join(fuente(f"geist-{p}.woff2", "Geist", p) for p in (400, 500, 600))
 
 
-def svg(w, h, etiqueta, cuerpo, t, defs="", mono=False):
+def svg(w, h, etiqueta, cuerpo, t, defs=""):
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{etiqueta}">
   <defs>
     <style>
-      {css(mono)}
+      {css()}
       .s {{ font-family: 'Geist', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }}
-      .m {{ font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }}
     </style>
     <filter id="sombra" x="-5%" y="-5%" width="110%" height="120%">
       <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="{t["sombra"]}"/>
