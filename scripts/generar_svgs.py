@@ -1,12 +1,12 @@
-"""Genera los SVG del perfil de la organización (banner, servicios, productos y contacto).
+"""Genera los SVG del perfil de la organización, con estilo tipo shadcn/ui.
 
 Uso: python3 scripts/generar_svgs.py
 
-- Paleta y tipografía de la marca (Nunito 400/700/800, embebida en cada SVG porque
-  GitHub muestra los SVG como <img> y ahí no cargan fuentes externas).
-- Todo lo que no es el banner sale en dos versiones, -claro y -oscuro, y el README
-  elige con <picture> según el tema de GitHub.
-- Sin cifras ni datos nuevos: todo el texto viene del README original.
+- Todo sale en dos versiones, -claro y -oscuro; el README elige con <picture>
+  según el tema de GitHub.
+- Tipografía Geist embebida (GitHub muestra los SVG como <img> y ahí no cargan
+  fuentes externas). Íconos de marca de Simple Icons en scripts/marcas/.
+- Sin cifras ni datos nuevos: el texto sale del README original.
 """
 import base64
 import os
@@ -15,42 +15,43 @@ import re
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(RAIZ, "profile", "assets")
 FUENTES = os.path.join(RAIZ, "scripts", "fuentes")
-ICONOS = os.path.join(ASSETS, "icons")
+MARCAS = os.path.join(RAIZ, "scripts", "marcas")
+
+ACENTO = "#418ADC"
+TEMAS = {
+    "claro": dict(card="#FFFFFF", borde="#E4E4E7", fg="#09090B", muted="#71717A", mutedbg="#F4F4F5",
+                  primario="#18181B", primario_fg="#FAFAFA", sombra="0.07", logo="logo.svg", logo_escala=2.45),
+    "oscuro": dict(card="#0D1117", borde="#27272A", fg="#FAFAFA", muted="#A1A1AA", mutedbg="#18181B",
+                   primario="#FAFAFA", primario_fg="#18181B", sombra="0", logo="logo_blanco.svg", logo_escala=0.3),
+}
+M = 4  # margen del lienzo para que quepa la sombra
 
 
-def css_fuentes():
-    reglas = []
-    for peso in (400, 700, 800):
-        datos = base64.b64encode(open(os.path.join(FUENTES, f"nunito-{peso}.woff2"), "rb").read()).decode()
-        reglas.append(f"@font-face {{ font-family: 'Nunito'; font-weight: {peso}; "
-                      f"src: url(data:font/woff2;base64,{datos}) format('woff2'); }}")
+def fuente(archivo, familia, peso):
+    datos = base64.b64encode(open(os.path.join(FUENTES, archivo), "rb").read()).decode()
+    return f"@font-face {{ font-family: '{familia}'; font-weight: {peso}; src: url(data:font/woff2;base64,{datos}) format('woff2'); }}"
+
+
+def css(mono=False):
+    reglas = [fuente(f"geist-{p}.woff2", "Geist", p) for p in (400, 500, 600)]
+    if mono:
+        reglas.append(fuente("geist-mono-400.woff2", "Geist Mono", 400))
     return "\n      ".join(reglas)
 
 
-FONT = css_fuentes()
-
-TEMAS = {
-    "claro": dict(card="#FFFFFF", card2="#F2F7FC", borde="#D8E3EF", tinta="#101827", sub="#3A5A7A",
-                  acento="#418ADC", acento2="#2D6CB5", tinte="#418ADC", tinte_op="0.12", fondo_icono="#EAF2FB"),
-    "oscuro": dict(card="#131C27", card2="#0F1721", borde="#263548", tinta="#E6EDF3", sub="#9DB4CC",
-                   acento="#5B9BE6", acento2="#8DBDF2", tinte="#5B9BE6", tinte_op="0.18", fondo_icono="#16263A"),
-}
-
-
-def svg(w, h, etiqueta, cuerpo, defs="", estilo="", recorte=True):
-    clip = f'\n    <clipPath id="clip"><rect width="{w}" height="{h}" rx="16"/></clipPath>' if recorte else ""
-    abre = '  <g clip-path="url(#clip)">' if recorte else "  <g>"
+def svg(w, h, etiqueta, cuerpo, t, defs="", mono=False):
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{etiqueta}">
   <defs>
     <style>
-      {FONT}
-      .n {{ font-family: 'Nunito', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }}
-      .mono {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }}{estilo}
-    </style>{clip}{defs}
+      {css(mono)}
+      .s {{ font-family: 'Geist', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }}
+      .m {{ font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }}
+    </style>
+    <filter id="sombra" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="{t["sombra"]}"/>
+    </filter>{defs}
   </defs>
-{abre}
 {cuerpo}
-  </g>
 </svg>
 '''
 
@@ -59,228 +60,256 @@ def guardar(nombre, contenido):
     open(os.path.join(ASSETS, nombre), "w").write(contenido)
 
 
-def texto(x, y, t, tam, color, peso=400, extra=""):
-    return f'<text class="n" x="{x}" y="{y}" font-size="{tam}" font-weight="{peso}" fill="{color}"{extra}>{t}</text>'
+def texto(x, y, s, tam, color, peso=400, extra="", cls="s"):
+    return f'<text class="{cls}" x="{x}" y="{y}" font-size="{tam}" font-weight="{peso}" fill="{color}"{extra}>{s}</text>'
 
 
-def tarjeta(t, w, h, gid="cg"):
-    return (f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{t["card"]}"/>'
-            f'<stop offset="1" stop-color="{t["card2"]}"/></linearGradient></defs>'
-            f'<rect width="{w}" height="{h}" rx="16" fill="url(#{gid})"/>'
-            f'<rect x="0.75" y="0.75" width="{w-1.5}" height="{h-1.5}" rx="15.25" fill="none" stroke="{t["borde"]}" stroke-width="1.5"/>')
+def tarjeta(t, x, y, w, h, r=12):
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{r}" fill="{t["card"]}" filter="url(#sombra)"/>'
+            f'<rect x="{x+0.5}" y="{y+0.5}" width="{w-1}" height="{h-1}" rx="{r-0.5}" fill="none" stroke="{t["borde"]}"/>')
 
 
-# ---------- Ilustraciones propias (caja de 72×72) ----------
+_METRICAS = {}
+
+
+def ancho(s, tam, peso=500):
+    """Ancho real del texto según las métricas de Geist."""
+    if peso not in _METRICAS:
+        from fontTools.ttLib import TTFont
+        f = TTFont(os.path.join(FUENTES, f"geist-{peso}.woff2"))
+        _METRICAS[peso] = (f.getBestCmap(), f["hmtx"].metrics, f["head"].unitsPerEm)
+    cmap, hmtx, upm = _METRICAS[peso]
+    return sum(hmtx[cmap[ord(ch)]][0] for ch in s if ord(ch) in cmap) * tam / upm
+
+
+def insignia(t, x, y, s, variante="secundaria"):
+    w = ancho(s, 15) + 24
+    if variante == "contorno":
+        fondo = f'fill="none" stroke="{t["borde"]}"'
+    else:
+        fondo = f'fill="{t["mutedbg"]}"'
+    return (f'<rect x="{x}" y="{y}" width="{w:.0f}" height="30" rx="7" {fondo}/>'
+            + texto(f"{x + w/2:.0f}", y + 20.5, s, 15, t["fg"], 500, ' text-anchor="middle"')), w
+
+
+# ---------- Íconos ----------
+LUCIDE = {
+    "phone": '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    "mail": '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+    "pin": '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+    "globe": '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+}
+
+
+def lucide(nombre, x, y, tam, color):
+    return (f'<g transform="translate({x},{y}) scale({tam/24})" fill="none" stroke="{color}" stroke-width="2" '
+            f'stroke-linecap="round" stroke-linejoin="round">{LUCIDE[nombre]}</g>')
+
+
+def marca(nombre, x, y, tam, color):
+    d = re.search(r' d="([^"]*)"', open(os.path.join(MARCAS, nombre + ".svg")).read()).group(1)
+    return f'<path transform="translate({x},{y}) scale({tam/24})" fill="{color}" d="{d}"/>'
+
+
 def ilustracion(nombre, t):
-    a, tn, op = t["acento"], t["tinte"], t["tinte_op"]
-    linea = f'fill="none" stroke="{a}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"'
-    suave = f'fill="{tn}" fill-opacity="{op}" stroke="{a}" stroke-width="2.5" stroke-linejoin="round"'
-    if nombre == "erp":  # módulos que se conectan en un solo sistema
-        return (f'<rect x="8" y="8" width="24" height="24" rx="6" fill="{a}"/>'
-                f'<rect x="40" y="8" width="24" height="24" rx="6" {suave}/>'
-                f'<rect x="8" y="40" width="24" height="24" rx="6" {suave}/>'
-                f'<rect x="40" y="40" width="24" height="24" rx="6" {suave}/>'
-                f'<path d="M32 20h8M20 32v8M52 32v8M32 52h8" {linea}/>')
-    if nombre == "movil":  # teléfono con tarjetas de app
-        return (f'<rect x="20" y="4" width="32" height="64" rx="8" {linea}/>'
-                f'<rect x="26" y="14" width="20" height="12" rx="3" fill="{a}"/>'
-                f'<rect x="26" y="30" width="20" height="12" rx="3" {suave}/>'
-                f'<path d="M26 48h14M26 54h9M32 62h8" {linea}/>')
-    if nombre == "web":  # ventana de navegador con panel y gráfica
-        return (f'<rect x="4" y="10" width="64" height="52" rx="7" {linea}/>'
-                f'<path d="M4 22h64" {linea}/>'
-                f'<circle cx="11" cy="16" r="1.8" fill="{a}"/><circle cx="17" cy="16" r="1.8" fill="{a}"/><circle cx="23" cy="16" r="1.8" fill="{a}"/>'
-                f'<rect x="10" y="28" width="14" height="28" rx="3" {suave}/>'
-                f'<rect x="30" y="44" width="7" height="12" rx="2" fill="{a}" fill-opacity="0.5"/>'
-                f'<rect x="41" y="38" width="7" height="18" rx="2" fill="{a}" fill-opacity="0.75"/>'
-                f'<rect x="52" y="30" width="7" height="26" rx="2" fill="{a}"/>')
-    if nombre == "ecommerce":  # bolsa con pago confirmado
-        return (f'<path d="M12 24h48l4 40H8z" {suave}/>'
-                f'<path d="M26 30v-10a10 10 0 0 1 20 0v10" {linea}/>'
-                f'<circle cx="48" cy="52" r="11" fill="{a}"/>'
-                f'<path d="M43 52l3.5 3.5L53 49" fill="none" stroke="{t["card"]}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>')
-    if nombre == "respaldo":  # servidores con sincronización
-        return (f'<rect x="6" y="10" width="46" height="18" rx="5" {suave}/>'
-                f'<rect x="6" y="34" width="46" height="18" rx="5" {suave}/>'
-                f'<circle cx="15" cy="19" r="2.2" fill="{a}"/><circle cx="15" cy="43" r="2.2" fill="{a}"/>'
-                f'<path d="M24 19h20M24 43h20" {linea}/>'
-                f'<circle cx="54" cy="54" r="13" fill="{a}"/>'
-                f'<path d="M48.5 54a5.5 5.5 0 0 1 9.6-3.6M59.5 54a5.5 5.5 0 0 1-9.6 3.6" fill="none" stroke="{t["card"]}" stroke-width="2.4" stroke-linecap="round"/>'
-                f'<path d="M58.6 46.6v4.2h-4.2M49.4 61.4v-4.2h4.2" fill="none" stroke="{t["card"]}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>')
-    if nombre == "consultoria":  # ruta por fases hasta la meta
-        return (f'<path d="M12 60c18 0 10-24 24-24s10-22 24-22" fill="none" stroke="{a}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>'
-                f'<circle cx="12" cy="60" r="6" {suave}/>'
-                f'<circle cx="36" cy="36" r="6" fill="{a}"/>'
-                f'<path d="M58 30V6" {linea}/><path d="M58 7h11l-4 5 4 5H58z" fill="{a}"/>')
+    """Íconos propios en una caja de 72×72: trazo en el color del texto y un solo toque de acento."""
+    fg, a = t["fg"], ACENTO
+    ln = f'fill="none" stroke="{fg}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"'
+    sv = f'fill="{t["mutedbg"]}" stroke="{fg}" stroke-width="4" stroke-linejoin="round"'
+    if nombre == "erp":
+        return (f'<rect x="6" y="6" width="26" height="26" rx="6" fill="{a}"/>'
+                f'<rect x="40" y="6" width="26" height="26" rx="6" {sv}/>'
+                f'<rect x="6" y="40" width="26" height="26" rx="6" {sv}/>'
+                f'<rect x="40" y="40" width="26" height="26" rx="6" {sv}/>')
+    if nombre == "movil":
+        return (f'<rect x="16" y="3" width="40" height="66" rx="9" {ln}/>'
+                f'<rect x="25" y="14" width="22" height="14" rx="3" fill="{a}"/>'
+                f'<path d="M25 38h22M25 47h14M31 60h10" {ln}/>')
+    if nombre == "web":
+        return (f'<rect x="3" y="9" width="66" height="54" rx="8" {ln}/>'
+                f'<path d="M3 23h66" {ln}/>'
+                f'<path d="M20 52V40M36 52V34" {ln}/><path d="M52 52V30" fill="none" stroke="{a}" stroke-width="5" stroke-linecap="round"/>')
+    if nombre == "ecommerce":
+        return (f'<path d="M12 24h48l4 42H8z" {ln}/>'
+                f'<path d="M25 30V20a11 11 0 0 1 22 0v10" {ln}/>'
+                f'<circle cx="36" cy="46" r="8" fill="{a}"/>')
+    if nombre == "consultoria":
+        return (f'<path d="M10 62c20 0 8-26 26-26s8-24 26-24" fill="none" stroke="{fg}" stroke-width="4" stroke-dasharray="1 8" stroke-linecap="round"/>'
+                f'<circle cx="10" cy="62" r="6" {sv}/>'
+                f'<circle cx="36" cy="36" r="6" {sv}/>'
+                f'<path d="M60 32V6" {ln}/><path d="M60 7h10l-3.5 5 3.5 5H60z" fill="{a}"/>')
     raise ValueError(nombre)
 
 
-def icono_fa(nombre, x, y, tam, color):
-    src = open(os.path.join(ICONOS, nombre + ".svg")).read()
-    vb = [float(v) for v in re.search(r'viewBox="([^"]*)"', src).group(1).split()]
-    d = re.search(r' d="([^"]*)"', src).group(1)
-    s = tam / max(vb[2], vb[3])
-    return (f'<path transform="translate({x + (tam - vb[2]*s)/2:.1f},{y + (tam - vb[3]*s)/2:.1f}) scale({s:.4f})" '
-            f'fill="{color}" d="{d}"/>')
+def mosaico_icono(t, x, y, nombre, tam=64):
+    return (f'<rect x="{x+0.5}" y="{y+0.5}" width="{tam-1}" height="{tam-1}" rx="10" fill="{t["card"]}" stroke="{t["borde"]}"/>'
+            f'<g transform="translate({x + tam*0.2},{y + tam*0.2}) scale({tam*0.6/72})">{ilustracion(nombre, t)}</g>')
 
 
-# ---------- Banner (único bloque en navy) ----------
-def banner():
-    logo = open(os.path.join(ASSETS, "logo_blanco.svg")).read()
+# ---------- Portada ----------
+def portada(tema):
+    t = TEMAS[tema]
+    w, h = 1200, 340
+    logo = open(os.path.join(ASSETS, t["logo"])).read()
     logo = logo[logo.index(">") + 1:logo.rindex("</svg>")].strip()
-    defs = '''
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#071524"/>
-      <stop offset="0.6" stop-color="#0A1C30"/>
-      <stop offset="1" stop-color="#16324F"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#418ADC" stop-opacity="0.35"/>
-      <stop offset="1" stop-color="#418ADC" stop-opacity="0"/>
+    defs = f'''
+    <pattern id="rejilla" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="{t["borde"]}" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="desvanece" cx="0.78" cy="0.5" r="0.45">
+      <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1.2" fill="#ffffff" fill-opacity="0.06"/>
-    </pattern>'''
-    estilo = '''
-      .flota { animation: flota 12s ease-in-out infinite; }
-      .cursor { animation: parpadeo 1s steps(1) infinite; }
-      @keyframes flota { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-60px,24px); } }
-      @keyframes parpadeo { 50% { opacity: 0; } }'''
-    c = [
-        '<rect width="1200" height="340" fill="url(#bg)"/>',
-        '<rect width="1200" height="340" fill="url(#dots)"/>',
-        '<circle class="flota" cx="1040" cy="60" r="280" fill="url(#glow)"/>',
-        f'<g transform="translate(72,96) scale(0.4)" fill="none">{logo}</g>',
-        '<text class="n" x="74" y="258" font-size="15" font-weight="700" letter-spacing="4.2" fill="#BFDCF8">SOLUCIONES TECNOLÓGICAS</text>',
-        '<line x1="430" y1="88" x2="430" y2="268" stroke="#BFDCF8" stroke-opacity="0.2" stroke-width="2"/>',
-        '<g transform="translate(474,0)">',
-        '<text class="n" x="0" y="112" font-size="16" font-weight="700" letter-spacing="3" fill="#418ADC">DESDE 1999 · MONTERREY, NL</text>',
-        '<text class="n" x="-2" y="168" font-size="48" font-weight="800" fill="#FFFFFF">Software, ERP y apps</text>',
-        '<text class="n" x="-2" y="222" font-size="48" font-weight="800" fill="#DCEAF9">para empresas mexicanas</text>',
-        '<text class="mono" x="0" y="266" font-size="18" fill="#BFDCF8"><tspan fill="#418ADC">❯</tspan> Intelisis ERP · desarrollo a medida · consultoría<tspan class="cursor" fill="#418ADC">▍</tspan></text>',
-        '</g>',
-    ]
-    guardar("banner.svg", svg(1200, 340, "IS del Norte — Soluciones tecnológicas. Software, ERP y apps para empresas mexicanas desde 1999",
-                              "\n".join(c), defs, estilo))
+    <mask id="mascara"><rect width="{w}" height="{h}" fill="url(#desvanece)"/></mask>
+    <clipPath id="recorte"><rect x="{M}" y="{M}" width="{w}" height="{h}" rx="12"/></clipPath>'''
+    c = [tarjeta(t, M, M, w, h),
+         f'<g clip-path="url(#recorte)"><rect x="{M}" y="{M}" width="{w}" height="{h}" fill="url(#rejilla)" mask="url(#mascara)"/></g>',
+         f'<g transform="translate({M},{M})">']
+    # anuncio
+    s = "Desde 1999 · Monterrey, NL"
+    pw = ancho(s, 16) + 46
+    c.append(f'<rect x="56.5" y="54.5" width="{pw:.0f}" height="35" rx="17.5" fill="{t["card"]}" stroke="{t["borde"]}"/>')
+    c.append(f'<circle cx="74" cy="72" r="4" fill="{ACENTO}"/>')
+    c.append(texto(86, 78, s, 16, t["fg"], 500))
+    c.append(texto(54, 158, "Software, ERP y apps", 54, t["fg"], 600, ' letter-spacing="-1.6"'))
+    c.append(texto(54, 220, "para empresas mexicanas.", 54, t["muted"], 600, ' letter-spacing="-1.6"'))
+    c.append(texto(56, 272, "Desarrollo a medida, Intelisis ERP y consultoría tecnológica.", 22, t["muted"]))
+    # logo
+    c.append(f'<rect x="830.5" y="88.5" width="300" height="164" rx="12" fill="{t["card"]}" stroke="{t["borde"]}"/>')
+    c.append(f'<g transform="translate(860,112) scale({t["logo_escala"]})" fill="none">{logo}</g>')
+    c.append(texto(980, 234, "SOLUCIONES TECNOLÓGICAS", 13, t["muted"], 500, ' text-anchor="middle" letter-spacing="3.5"'))
+    c.append("</g>")
+    guardar(f"portada-{tema}.svg", svg(w + 2*M, h + 2*M, "IS del Norte — Software, ERP y apps para empresas mexicanas. Desde 1999, Monterrey, NL", "\n".join(c), t, defs))
+
+
+# ---------- Botones ----------
+BOTONES = [
+    ("whatsapp", "WhatsApp", ("marca", "whatsapp"), True),
+    ("sitio", "isdelnorte.com", ("lucide", "globe"), False),
+    ("linkedin", "LinkedIn", ("marca", "linkedin"), False),
+    ("correo", "Correo", ("lucide", "mail"), False),
+    ("appstore", "App Store", ("marca", "apple"), False),
+    ("googleplay", "Google Play", ("marca", "googleplay"), False),
+    ("web", "Versión web", ("lucide", "globe"), False),
+]
+
+
+def boton(tema, clave, etiqueta, ico, primario):
+    t = TEMAS[tema]
+    w = round(16 + 16 + 8 + ancho(etiqueta, 15) + 16)
+    h = 40
+    fondo, color = (t["primario"], t["primario_fg"]) if primario else (t["card"], t["fg"])
+    c = [f'<rect x="{M}" y="{M}" width="{w}" height="{h}" rx="8" fill="{fondo}" filter="url(#sombra)"/>']
+    if not primario:
+        c.append(f'<rect x="{M+0.5}" y="{M+0.5}" width="{w-1}" height="{h-1}" rx="7.5" fill="none" stroke="{t["borde"]}"/>')
+    tipo, nombre = ico
+    c.append((marca if tipo == "marca" else lucide)(nombre, M + 16, M + 12, 16, color))
+    c.append(texto(M + 40, M + 25.5, etiqueta, 15, color, 500))
+    guardar(f"boton-{clave}-{tema}.svg", svg(w + 2*M, h + 2*M, etiqueta, "\n".join(c), t))
 
 
 # ---------- Servicios ----------
-SERVICIOS = [
-    ("erp", "Intelisis ERP", ["Implementación, personalización y soporte.", "Implementadores certificados, +19 años."]),
+SECUNDARIOS = [
     ("movil", "Aplicaciones móviles", ["Apps empresariales para iOS y Android", "desde una sola base de código."]),
     ("web", "Aplicaciones web", ["Sistemas a la medida que centralizan la", "operación y eliminan procesos manuales."]),
-    ("ecommerce", "E-commerce", ["Tiendas en línea con OXXO, SPEI y tarjetas,", "integradas con paqueterías."]),
-    ("respaldo", "Respaldo Simple", ["Backup cifrado AES-256 para servidores", "Windows y SQL Server."]),
+    ("ecommerce", "E-commerce", ["Tiendas en línea con pagos mexicanos (OXXO,", "SPEI, tarjetas) e integración de paqueterías."]),
     ("consultoria", "Consultoría", ["Diagnóstico de operación, plan de", "transformación digital e implementación."]),
 ]
 
 
 def servicios(tema):
     t = TEMAS[tema]
-    w, h, gap = 590, 168, 20
+    W, gap = 1200, 16
     c = []
-    for i, (il, titulo, desc) in enumerate(SERVICIOS):
-        x, y = (i % 2) * (w + gap), (i // 2) * (h + gap)
-        c.append(f'<g transform="translate({x},{y})">')
-        c.append(tarjeta(t, w, h, f"cg{i}"))
-        c.append(f'<rect x="28" y="36" width="96" height="96" rx="22" fill="{t["fondo_icono"]}"/>')
-        c.append(f'<g transform="translate(40,48)">{ilustracion(il, t)}</g>')
-        c.append(texto(150, 74, titulo, 28, t["tinta"], 800))
+    # destacado: Intelisis ERP
+    hd = 140
+    c.append(tarjeta(t, M, M, W, hd))
+    c.append(mosaico_icono(t, M + 32, M + 38, "erp"))
+    c.append(texto(M + 120, M + 64, "Intelisis ERP", 28, t["fg"], 600, ' letter-spacing="-0.5"'))
+    c.append(texto(M + 120, M + 98, "Implementadores certificados con +19 años de experiencia.", 20, t["muted"]))
+    x = M + W - 32
+    for s in reversed(["Implementación", "Personalización", "Soporte"]):
+        x -= ancho(s, 15) + 24
+        sv, bw = insignia(t, x, M + 55, s)
+        c.append(sv)
+        x -= 8
+    # 2×2
+    cw, ch = (W - gap) / 2, 220
+    for i, (il, titulo, desc) in enumerate(SECUNDARIOS):
+        x0 = M + (i % 2) * (cw + gap)
+        y0 = M + hd + gap + (i // 2) * (ch + gap)
+        c.append(tarjeta(t, x0, y0, cw, ch))
+        c.append(mosaico_icono(t, x0 + 32, y0 + 32, il))
+        c.append(texto(x0 + 32, y0 + 136, titulo, 26, t["fg"], 600, ' letter-spacing="-0.4"'))
         for j, linea in enumerate(desc):
-            c.append(texto(150, 108 + j * 28, linea, 19, t["sub"]))
-        c.append("</g>")
-    guardar(f"servicios-{tema}.svg", svg(1200, 3 * h + 2 * gap,
-            "Qué hacemos: Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce, Respaldo Simple y consultoría",
-            "\n".join(c), recorte=False))
+            c.append(texto(x0 + 32, y0 + 170 + j * 28, linea, 20, t["muted"]))
+    H = hd + gap + 2 * ch + gap
+    guardar(f"servicios-{tema}.svg", svg(W + 2*M, H + 2*M,
+            "Qué hacemos: Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce y consultoría", "\n".join(c), t))
 
 
-# ---------- Productos ----------
-def chip(t, x, y, etiqueta):
-    w = 22 + len(etiqueta) * 9.4
-    return (f'<rect x="{x}" y="{y}" width="{w:.0f}" height="34" rx="17" fill="none" stroke="{t["acento"]}" stroke-opacity="0.55" stroke-width="1.5"/>'
-            + texto(f"{x + w/2:.0f}", y + 23, etiqueta, 16, t["acento2"], 700, ' text-anchor="middle"')), w
-
-
-def ilus_finanzas(t):
-    a, tn, op, card = t["acento"], t["tinte"], t["tinte_op"], t["card"]
-    return f'''<g transform="translate(420,34)">
-      <rect x="0" y="0" width="132" height="250" rx="22" fill="{card}" stroke="{t["borde"]}" stroke-width="2"/>
-      <rect x="14" y="18" width="50" height="7" rx="3.5" fill="{t["sub"]}" fill-opacity="0.45"/>
-      <rect x="14" y="32" width="78" height="12" rx="6" fill="{t["tinta"]}" fill-opacity="0.85"/>
-      <path d="M14 112 L36 98 L56 104 L78 80 L98 86 L118 62 V128 H14 Z" fill="{tn}" fill-opacity="{op}"/>
-      <path d="M14 112 L36 98 L56 104 L78 80 L98 86 L118 62" fill="none" stroke="{a}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="118" cy="62" r="4.5" fill="{a}"/>
-      <g fill="{t["sub"]}" fill-opacity="0.18">
-        <rect x="14" y="146" width="104" height="22" rx="7"/><rect x="14" y="176" width="104" height="22" rx="7"/><rect x="14" y="206" width="104" height="22" rx="7"/>
-      </g>
-      <circle cx="26" cy="157" r="5" fill="{a}"/><circle cx="26" cy="187" r="5" fill="{a}" fill-opacity="0.6"/><circle cx="26" cy="217" r="5" fill="{a}" fill-opacity="0.35"/>
-    </g>'''
-
-
-def ilus_respaldo(t):
-    a, tn, op, card = t["acento"], t["tinte"], t["tinte_op"], t["card"]
-    filas = "".join(
-        f'<rect x="0" y="{y}" width="120" height="40" rx="9" fill="{tn}" fill-opacity="{op}" stroke="{a}" stroke-width="2.5"/>'
-        f'<circle cx="18" cy="{y+20}" r="4" fill="{a}"/><circle cx="32" cy="{y+20}" r="4" fill="{a}" fill-opacity="0.5"/>'
-        f'<path d="M58 {y+20}h46" stroke="{a}" stroke-width="2.5" stroke-linecap="round"/>' for y in (96, 146, 196))
-    return f'''<g transform="translate(424,24)">
-      <path d="M38 62 a20 20 0 0 1 4-39 a26 26 0 0 1 50 6 a17 17 0 0 1 0 33 z" fill="{tn}" fill-opacity="{op}" stroke="{a}" stroke-width="2.5" stroke-linejoin="round"/>
-      <path d="M60 88 V52 M50 62 l10-10 10 10" fill="none" stroke="{a}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      {filas}
-      <g transform="translate(92,190)">
-        <path d="M18 0 L36 6 V20 C36 31 28 38 18 42 C8 38 0 31 0 20 V6 Z" fill="{a}"/>
-        <path d="M11 21 l5 5 9-10" fill="none" stroke="{card}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </g>
-    </g>'''
-
-
-def producto(tema, archivo, ceja, titulo, desc, chips, ilus, etiqueta):
+# ---------- Producto ----------
+def producto(tema):
     t = TEMAS[tema]
-    w, h = 590, 310
-    c = [tarjeta(t, w, h), ilus(t)]
-    c.append(texto(36, 60, ceja, 14, t["acento2"], 700, ' letter-spacing="2.4"'))
-    c.append(texto(34, 108, titulo, 36, t["tinta"], 800))
-    for j, linea in enumerate(desc):
-        c.append(texto(36, 150 + j * 29, linea, 19, t["sub"]))
-    x = 36
-    for e in chips:
-        s, cw = chip(t, x, 238, e)
-        c.append(s)
-        x += cw + 10
-    guardar(f"{archivo}-{tema}.svg", svg(w, h, etiqueta, "\n".join(c)))
+    w, h = 1200, 300
+    defs = f'<clipPath id="recorte"><rect x="{M}" y="{M}" width="{w}" height="{h}" rx="12"/></clipPath>'
+    c = [tarjeta(t, M, M, w, h), f'<g transform="translate({M},{M})">']
+    s, bw = insignia(t, 56, 52, "App", "contorno")
+    c.append(s)
+    c.append(texto(56 + bw + 12, 73, "Finanzas personales", 17, t["muted"], 500))
+    c.append(texto(54, 132, "Mis Finanzas IS", 44, t["fg"], 600, ' letter-spacing="-1.2"'))
+    c.append(texto(56, 178, "Gestión de finanzas personales: múltiples cuentas,", 22, t["muted"]))
+    c.append(texto(56, 210, "movimientos, pagos periódicos y reportes.", 22, t["muted"]))
+    x = 56
+    for e in ("Web", "iOS", "Android"):
+        sv, bw = insignia(t, x, 240, e)
+        c.append(sv)
+        x += bw + 8
+    c.append("</g>")
+    # teléfono que se sale por abajo, recortado por la tarjeta
+    fg, mu, a = t["fg"], t["muted"], ACENTO
+    c.append(f'''<g clip-path="url(#recorte)"><g transform="translate({M+860},{M+44})">
+      <rect x="0.5" y="0.5" width="250" height="330" rx="32" fill="{t["card"]}" stroke="{t["borde"]}" filter="url(#sombra)"/>
+      <rect x="10.5" y="10.5" width="230" height="310" rx="24" fill="{t["mutedbg"]}" fill-opacity="0.6" stroke="{t["borde"]}"/>
+      <rect x="95" y="20" width="60" height="8" rx="4" fill="{t["borde"]}"/>
+      {texto(30, 66, "Saldo total", 13, mu, 500)}
+      <rect x="30" y="78" width="132" height="22" rx="6" fill="{fg}"/>
+      <path d="M30 186 L68 166 L100 174 L136 140 L168 150 L220 112 V214 H30 Z" fill="{a}" fill-opacity="0.12"/>
+      <path d="M30 186 L68 166 L100 174 L136 140 L168 150 L220 112" fill="none" stroke="{a}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="220" cy="112" r="5" fill="{a}"/>
+      <g fill="{t["card"]}" stroke="{t["borde"]}"><rect x="30.5" y="232.5" width="190" height="34" rx="8"/><rect x="30.5" y="274.5" width="190" height="34" rx="8"/></g>
+      <circle cx="48" cy="250" r="6" fill="{a}"/><rect x="62" y="246" width="70" height="8" rx="4" fill="{mu}" fill-opacity="0.5"/>
+      <circle cx="48" cy="292" r="6" fill="{mu}" fill-opacity="0.5"/><rect x="62" y="288" width="96" height="8" rx="4" fill="{mu}" fill-opacity="0.5"/>
+    </g></g>''')
+    guardar(f"producto-finanzas-{tema}.svg", svg(w + 2*M, h + 2*M, "Mis Finanzas IS: finanzas personales en web, iOS y Android", "\n".join(c), t, defs))
 
 
 # ---------- Contacto ----------
 def contacto(tema):
     t = TEMAS[tema]
-    w, h = 1200, 220
-    c = [tarjeta(t, w, h)]
-    c.append(f'<rect x="0" y="0" width="6" height="{h}" fill="{t["acento"]}"/>')
-    c.append(texto(64, 70, "PRIMERA CONSULTA SIN COSTO", 15, t["acento2"], 700, ' letter-spacing="3"'))
-    c.append(texto(62, 124, "¿Platicamos tu proyecto?", 44, t["tinta"], 800))
-    c.append(texto(64, 166, "Damos servicio a toda la República Mexicana.", 20, t["sub"]))
-    c.append(f'<line x1="760" y1="44" x2="760" y2="176" stroke="{t["borde"]}" stroke-width="2"/>')
-    filas = [("whatsapp", "81 2188 4423"), ("envelope", "contacto@isdelnorte.com"), ("location-dot", "Monterrey, NL, México")]
-    for i, (ic, txt) in enumerate(filas):
-        y = 58 + i * 44
-        if ic == "whatsapp":
-            c.append(f'<circle cx="811" cy="{y+11}" r="12" fill="#25D366"/>'
-                     f'<path d="M805.5 {y+5.5}c.6-1 1.5-1 2-.2l1.4 2c.3.5.2 1.1-.2 1.5l-.8.7c.7 1.7 2 3 3.7 3.7l.7-.8c.4-.4 1-.5 1.5-.2l2 1.4c.8.5.8 1.4-.2 2-1.4 1-3.2 1.1-5.4-.3-1.9-1.2-3.4-2.7-4.6-4.6-1.4-2.2-1.3-4-.1-5.2z" fill="#fff"/>')
-        else:
-            c.append(icono_fa(ic, 800, y, 22, t["acento"]))
-        c.append(texto(838, y + 18, txt, 20, t["tinta"], 700))
-    guardar(f"contacto-{tema}.svg", svg(w, h, "¿Platicamos tu proyecto? Primera consulta sin costo. 81 2188 4423 · contacto@isdelnorte.com · Monterrey, NL", "\n".join(c)))
+    w, h = 1200, 210
+    c = [tarjeta(t, M, M, w, h), f'<g transform="translate({M},{M})">']
+    c.append(texto(54, 86, "¿Platicamos tu proyecto?", 36, t["fg"], 600, ' letter-spacing="-0.9"'))
+    c.append(texto(56, 126, "Primera consulta sin costo.", 21, t["muted"]))
+    c.append(texto(56, 156, "Damos servicio a toda la República Mexicana.", 21, t["muted"]))
+    x0, x1 = 700, 1144
+    filas = [("phone", "81 2188 4423"), ("mail", "contacto@isdelnorte.com"), ("pin", "Monterrey, NL, México")]
+    for i, (ic, s) in enumerate(filas):
+        y = 38 + i * 46
+        if i:
+            c.append(f'<line x1="{x0}" y1="{y-6}" x2="{x1}" y2="{y-6}" stroke="{t["borde"]}"/>')
+        c.append(lucide(ic, x0, y + 8, 20, t["muted"]))
+        c.append(texto(x0 + 34, y + 25, s, 20, t["fg"], 500))
+    c.append("</g>")
+    guardar(f"contacto-{tema}.svg", svg(w + 2*M, h + 2*M, "¿Platicamos tu proyecto? Primera consulta sin costo. 81 2188 4423 · contacto@isdelnorte.com · Monterrey, NL", "\n".join(c), t))
 
 
 if __name__ == "__main__":
-    banner()
     for tema in TEMAS:
+        portada(tema)
         servicios(tema)
-        producto(tema, "producto-finanzas", "APP · FINANZAS PERSONALES", "Mis Finanzas IS",
-                 ["Cuentas, movimientos, pagos periódicos", "y reportes en un solo lugar."],
-                 ["Web", "iOS", "Android"], ilus_finanzas, "Mis Finanzas IS: finanzas personales en web, iOS y Android")
-        producto(tema, "producto-respaldo", "RECUPERACIÓN ANTE DESASTRES", "Respaldo Simple",
-                 ["Backup cifrado para empresas con", "servidores físicos."],
-                 ["AES-256", "Windows", "SQL Server"], ilus_respaldo, "Respaldo Simple: backup cifrado AES-256 para servidores Windows y SQL Server")
+        producto(tema)
         contacto(tema)
+        for b in BOTONES:
+            boton(tema, *b)
     print("ok")

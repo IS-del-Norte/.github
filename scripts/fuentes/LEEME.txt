@@ -1,2 +1,2 @@
-Nunito (subconjunto 400/700/800) — SIL Open Font License 1.1.
-https://github.com/googlefonts/nunito
+Geist (subconjuntos 400/500/600) — SIL Open Font License 1.1.
+https://github.com/vercel/geist-font

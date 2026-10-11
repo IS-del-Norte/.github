@@ -1,41 +1,30 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/banner.svg" alt="IS del Norte — Soluciones tecnológicas. Software, ERP y apps para empresas mexicanas desde 1999" width="100%">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/portada-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/portada-claro.svg" alt="IS del Norte — Software, ERP y apps para empresas mexicanas. Desde 1999, Monterrey, NL" width="100%"></picture>
 </p>
 
 <p align="center">
-  <a href="https://www.isdelnorte.com"><img src="https://img.shields.io/badge/isdelnorte.com-0A1C30?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Sitio web"></a>
-  <a href="https://www.linkedin.com/company/isdelnorte/"><img src="https://img.shields.io/badge/LinkedIn-0A1C30?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://api.whatsapp.com/send?phone=528121884423"><img src="https://img.shields.io/badge/WhatsApp-0A1C30?style=for-the-badge&logo=whatsapp&logoColor=25D366" alt="WhatsApp"></a>
-  <a href="mailto:contacto@isdelnorte.com"><img src="https://img.shields.io/badge/Correo-0A1C30?style=for-the-badge&logo=gmail&logoColor=white" alt="Correo"></a>
+  <a href="https://api.whatsapp.com/send?phone=528121884423"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-whatsapp-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-whatsapp-claro.svg" alt="WhatsApp" height="48"></picture></a>
+  <a href="https://www.isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-sitio-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-sitio-claro.svg" alt="isdelnorte.com" height="48"></picture></a>
+  <a href="https://www.linkedin.com/company/isdelnorte/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-linkedin-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-linkedin-claro.svg" alt="LinkedIn" height="48"></picture></a>
+  <a href="mailto:contacto@isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-correo-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-correo-claro.svg" alt="Correo" height="48"></picture></a>
 </p>
 
 ## Qué hacemos
 
 <p align="center">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-claro.svg" alt="Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce, Respaldo Simple y consultoría" width="100%"></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/servicios-claro.svg" alt="Intelisis ERP, aplicaciones móviles, aplicaciones web, e-commerce y consultoría" width="100%"></picture>
 </p>
 
-## Nuestros productos
+## Nuestro producto
 
 <p align="center">
-  <a href="https://misfinanzas.isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-claro.svg" alt="Mis Finanzas IS — finanzas personales en web, iOS y Android" width="49%"></picture></a>
-  <a href="https://www.isdelnorte.com/respaldo-simple/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-respaldo-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-respaldo-claro.svg" alt="Respaldo Simple — backup cifrado AES-256 para servidores" width="49%"></picture></a>
+  <a href="https://misfinanzas.isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/producto-finanzas-claro.svg" alt="Mis Finanzas IS — finanzas personales en web, iOS y Android" width="100%"></picture></a>
 </p>
 
 <p align="center">
-  <a href="https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300"><img src="https://img.shields.io/badge/App_Store-418ADC?style=flat-square&logo=appstore&logoColor=white" alt="Mis Finanzas IS en App Store"></a>
-  <a href="https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte"><img src="https://img.shields.io/badge/Google_Play-418ADC?style=flat-square&logo=googleplay&logoColor=white" alt="Mis Finanzas IS en Google Play"></a>
-  <a href="https://misfinanzas.isdelnorte.com"><img src="https://img.shields.io/badge/Versión_web-418ADC?style=flat-square&logo=googlechrome&logoColor=white" alt="Mis Finanzas IS en la web"></a>
-</p>
-
-## Stack
-
-<p align="center">
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=flutter,dart,nextjs,react,ts,nodejs,tailwind&perline=7" alt="Flutter, Dart, Next.js, React, TypeScript, Node.js y Tailwind">
-    <br>
-    <img src="https://skillicons.dev/icons?i=dotnet,cs,supabase,postgres,firebase,aws,vercel&perline=7" alt=".NET, C#, Supabase, Postgres, Firebase, AWS y Vercel">
-  </a>
+  <a href="https://apps.apple.com/mx/app/mis-finanzas-is/id6755738300"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-appstore-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-appstore-claro.svg" alt="Mis Finanzas IS en App Store" height="48"></picture></a>
+  <a href="https://play.google.com/store/apps/details?id=com.isdelnorte.app_finanzas_is_del_norte"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-googleplay-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-googleplay-claro.svg" alt="Mis Finanzas IS en Google Play" height="48"></picture></a>
+  <a href="https://misfinanzas.isdelnorte.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-web-oscuro.svg"><img src="https://raw.githubusercontent.com/IS-del-Norte/.github/main/profile/assets/boton-web-claro.svg" alt="Mis Finanzas IS en la web" height="48"></picture></a>
 </p>
 
 <br>
